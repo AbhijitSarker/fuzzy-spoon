@@ -1,0 +1,14 @@
+{
+    "name": "abhijit/fuzzy-spoon",
+    "description": "a plugin project",
+    "type": "wordpress-plugin",
+    "license": "GPL2",
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Fuzzy\\Spoon\\": "includes/"
+        },
+        "files": []
+    }
+}
