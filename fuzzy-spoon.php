@@ -27,7 +27,7 @@ require_once __DIR__ . "/vendor/autoload.php";
 final class Fuzzy_Spoon
 {
     //plugin version
-    const VERSION  = '1.0';
+    const version  = '1.0';
 
     //class constructor
     private function __construct()
@@ -36,7 +36,7 @@ final class Fuzzy_Spoon
 
         register_activation_hook(__FILE__, [$this, 'activate']);
 
-        add_action($this, [$this, 'init_plugin']);
+        add_action('plugins_loaded', [$this, 'init_plugin']);
     }
 
     //initialize a singleton instance
@@ -55,7 +55,7 @@ final class Fuzzy_Spoon
     //defining constants
     public function define_constants()
     {
-        define('FUZZY_SPOON_VERSION', self::VERSION);
+        define('FUZZY_SPOON_VERSION', self::version);
         define('FUZZY_SPOON_FILE', __FILE__);
         define('FUZZY_SPOON_PATH', __DIR__);
         define('FUZZY_SPOON_URL', plugins_url('', FUZZY_SPOON_FILE));
@@ -65,6 +65,11 @@ final class Fuzzy_Spoon
     //
     public function init_plugin()
     {
+        if (is_admin()) {
+            new Fuzzy\Spoon\Admin();
+        } else {
+            new Fuzzy\Spoon\Frontend();
+        }
     }
 
 
