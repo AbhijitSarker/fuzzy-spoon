@@ -40,7 +40,7 @@ final class Fuzzy_Spoon
     }
 
     //initialize a singleton instance
-    //return fuzzy-spoon
+    //return \fuzzy-spoon
     public static function init()
     {
         static $instance = false;
@@ -68,7 +68,7 @@ final class Fuzzy_Spoon
     }
 
 
-    //D o stuff on activation
+    //Do stuff on activation
     public function activate()
     {
         $installed = get_option('fuzzy_spoon_installed');
