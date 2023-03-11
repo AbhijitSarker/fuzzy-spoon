@@ -9,6 +9,6 @@
         "psr-4": {
             "Fuzzy\\Spoon\\": "includes/"
         },
-        "files": []
+        "files": ["includes/functions.php"]
     }
 }

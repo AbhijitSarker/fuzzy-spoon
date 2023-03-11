@@ -50,6 +50,13 @@ class Addressbook
             wp_die('Are you cheating?');
         }
 
+        $name    = isset($_POST['name']) ? sanitize_text_field($_POST['name']) : '';
+        $address = isset($_POST['address']) ? sanitize_textarea_field($_POST['address']) : '';
+        $phone   = isset($_POST['phone']) ? sanitize_text_field($_POST['phone']) : '';
+
+
+        var_dump(wd_ac_insert_address());
+
         var_dump($_POST);
         exit;
     }

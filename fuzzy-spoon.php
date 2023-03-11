@@ -76,13 +76,8 @@ final class Fuzzy_Spoon
     //Do stuff on activation
     public function activate()
     {
-        $installed = get_option('fuzzy_spoon_installed');
-
-        if (!$installed) {
-            update_option('fuzzy_spoon_installed', time());
-        }
-
-        update_option('fuzzy_spoon_version', FUZZY_SPOON_VERSION);
+        $installer = new \Fuzzy\Spoon\Installer;
+        $installer->run();
     }
 }
 
