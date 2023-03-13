@@ -6,6 +6,8 @@ namespace Fuzzy\Spoon\Admin;
 //address book handler
 class Addressbook
 {
+    public $errors = [];
+
     public function plugin_page()
     {
         $action = isset($_GET['action']) ? $_GET['action'] : 'list';
@@ -54,10 +56,30 @@ class Addressbook
         $address = isset($_POST['address']) ? sanitize_textarea_field($_POST['address']) : '';
         $phone   = isset($_POST['phone']) ? sanitize_text_field($_POST['phone']) : '';
 
+        if (empty($name)) {
+            $this->errors['name'] = __('Please provide a name', 'fuzzy-spoon');
+        }
 
-        var_dump(wd_ac_insert_address());
+        if (empty($phone)) {
+            $this->errors['phone'] = __('Please provide a phone number.', 'fuzzy-spoon');
+        }
 
-        var_dump($_POST);
+        if (!empty($this->errors)) {
+            return;
+        }
+
+        $insert_id = wd_ac_insert_address([
+            'name'    => $name,
+            'address' => $address,
+            'phone'   => $phone
+        ]);
+
+        if (is_wp_error($insert_id)) {
+            wp_die($insert_id->get_error_message());
+        }
+
+        $redirected_to = admin_url('admin.php?page=fuzzy-spoon&inserted=true');
+        wp_redirect($redirected_to);
         exit;
     }
 }

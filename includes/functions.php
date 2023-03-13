@@ -7,8 +7,8 @@ function wd_ac_insert_address($args = [])
 {
     global $wpdb;
 
-    if (empty($data['name'])) {
-        return new WP_Error('no-name', __('You must have a name', 'fuzzy-spoon'));
+    if (empty($args['name'])) {
+        return new \WP_Error('no-name', __('You must have a name', 'fuzzy-spoon'));
     }
 
     $defaults = [
@@ -24,19 +24,19 @@ function wd_ac_insert_address($args = [])
 
     $inserted = $wpdb->insert(
         "{$wpdb->prefix}addresses",
-        $data,
+        $args,
         [
             '%s',
             '%s',
             '%s',
             '%d',
-            '%s',
+            '%s'
         ]
 
     );
 
     if (!$inserted) {
-        return new WP_Error('failed-to-insert', __('Failed to isert data', 'fuzzy-spoon'));
+        return new WP_Error('failed-to-insert', __('Failed to insert data', 'fuzzy-spoon'));
     }
 
     return $wpdb->insert_id;
