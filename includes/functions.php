@@ -3,7 +3,7 @@
 
 //insert a new address
 //return int / wperror
-function wd_ac_insert_address($args = [])
+function fs_insert_address($args = [])
 {
     global $wpdb;
 
@@ -23,7 +23,7 @@ function wd_ac_insert_address($args = [])
     wp_parse_args($args, $defaults);
 
     $inserted = $wpdb->insert(
-        "{$wpdb->prefix}addresses",
+        $wpdb->prefix . 'addresses',
         $args,
         [
             '%s',
@@ -32,12 +32,48 @@ function wd_ac_insert_address($args = [])
             '%d',
             '%s'
         ]
-
     );
+
 
     if (!$inserted) {
         return new WP_Error('failed-to-insert', __('Failed to insert data', 'fuzzy-spoon'));
     }
 
     return $wpdb->insert_id;
+}
+
+//fetch address
+function fs_get_addresses($args = [])
+{
+    global $wpdb;
+
+    $defaults  = [
+        'number'  => 2,
+        'offset'  => 0,
+        'orderby' => 'id',
+        'order'   => 'ASC'
+    ];
+
+    $args = wp_parse_args($args, $defaults);
+
+    $sql = $wpdb->prepare(
+        "SELECT * FROM {$wpdb->prefix}addresses
+            ORDER BY {$args['orderby']} {$args['order']}
+            LIMIT %d, %d",
+        $args['offset'],
+        $args['number']
+    );
+
+    $items = $wpdb->get_results($sql);
+
+    return $items;
+}
+
+//GET THE COUNT OF TOTAL ADDRESSES
+//RETURN INT
+function fs_address_count()
+{
+    global $wpdb;
+
+    return $wpdb->get_var("SELECT  count(id) FROM {$wpdb->prefix}addresses");
 }
