@@ -71,7 +71,7 @@ function fs_get_addresses($args = [])
     global $wpdb;
 
     $defaults  = [
-        'number'  => 2,
+        'number'  => 20,
         'offset'  => 0,
         'orderby' => 'id',
         'order'   => 'ASC'

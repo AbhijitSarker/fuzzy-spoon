@@ -20,6 +20,9 @@ class Shortcode
     //string
     public function render_shortcode($atts, $content = '')
     {
-        return 'Hello from shortcode';
+        wp_enqueue_script('fuzzy-script');
+        wp_enqueue_style('fuzzy-style');
+
+        return '<div class="spoon-shortcode">Hello from shortcode.</div>';
     }
 }
