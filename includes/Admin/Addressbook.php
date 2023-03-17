@@ -89,7 +89,36 @@ class Addressbook
             wp_die($insert_id->get_error_message());
         }
 
-        $redirected_to = admin_url('admin.php?page=fuzzy-spoon&inserted=true');
+        if ($id) {
+            $redirected_to = admin_url('admin.php?page=fuzzy-spoon&action=edit&address-updated=true&id=' . $id);
+        } else {
+
+            $redirected_to = admin_url('admin.php?page=fuzzy-spoon&inserted=true');
+        }
+
+
+        wp_redirect($redirected_to);
+        exit;
+    }
+
+    public function delete_address()
+    {
+        if (!wp_verify_nonce($_REQUEST['_wpnonce'], 'fs-delete-address')) {
+            wp_die('Are you cheating?');
+        }
+
+        if (!current_user_can('manage_options')) {
+            wp_die('Are you cheating?');
+        }
+
+        $id = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : 0;
+
+        if (fs_delete_address($id)) {
+            $redirected_to = admin_url('admin.php?page=fuzzy-spoon&address-deleted=true');
+        } else {
+            $redirected_to = admin_url('admin.php?page=fuzzy-spoon&address-deleted=false');
+        }
+
         wp_redirect($redirected_to);
         exit;
     }

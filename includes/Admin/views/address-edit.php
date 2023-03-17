@@ -1,7 +1,11 @@
 <div class="wrap">
     <h1><?php _e('Edit Address', 'fuzzy-spoon'); ?></h1>
 
-
+    <?php if (isset($_GET['address-updated'])) { ?>
+        <div class="notice notice-success">
+            <p><?php _e('Address has been updated successfully!', 'fuzzy-spoon') ?></p>
+        </div>
+    <?php } ?>
     <form action="" method="post">
         <table class="form-table">
             <tbody>
