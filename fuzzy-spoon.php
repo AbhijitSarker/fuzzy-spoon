@@ -65,7 +65,11 @@ final class Fuzzy_Spoon
     //
     public function init_plugin()
     {
-        new \Fuzzy\Spoon\Assets();
+        new Fuzzy\Spoon\Assets();
+
+        if (is_admin() && defined('DOING_AJAX') && DOING_AJAX) {
+            new Fuzzy\Spoon\Ajax();
+        }
 
         if (is_admin()) {
             new Fuzzy\Spoon\Admin();

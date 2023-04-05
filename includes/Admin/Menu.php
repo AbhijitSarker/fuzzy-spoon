@@ -38,5 +38,6 @@ class Menu
     public function enqueue_assets()
     {
         wp_enqueue_style('fuzzy-admin-style');
+        wp_enqueue_script('spoon-admin-script');
     }
 }

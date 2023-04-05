@@ -88,11 +88,9 @@ class Address_List extends WP_List_Table
         );
 
         $actions['delete'] = sprintf(
-            '<a href="%s" class="submitdelete" onclick="return confirm(\'Are you sure?\');" title="%s">%s</a>',
-            wp_nonce_url(admin_url('admin-post.php?action=fs-delete-address&id=' . $item->id), 'fs-delete-address'),
+            '<a href="#" class="submitdelete" data-id="%s">%s</a>',
             $item->id,
             __('Delete', 'fuzzy-spoon'),
-            __('Delete', 'fuzzy-spoon')
         );
 
         return sprintf(
